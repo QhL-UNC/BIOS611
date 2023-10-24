@@ -30,21 +30,18 @@ library(readr)
 # ------------
 # Paths & data
 # 1. set up paths & data name
-path <- getwd()
-data_path <- paste0(path, "/work/Data/")
+setwd("/home/rstudio/work")
+getwd()
 data_name1 <- "Sleep_Efficiency.csv"
 data_name2 <- "Sleep_health_and_lifestyle_dataset.csv"
-
-figure_path <- paste0(path, "/work/Figures/")
   
 # 2. Read in data
-SE_df <- read_csv(paste0(data_path, data_name1))
-slp_life_df <- read_csv(paste0(data_path, data_name2))
+SE_df <- read_csv(paste0("Data/", data_name1))
+slp_life_df <- read_csv(paste0("Data/", data_name2))
 slp_life_df <- separate(slp_life_df, col = `Blood Pressure`, 
-                        into = c("SBP", "DBP"), sep = "/")
-
-slp_life_df <- slp_life_df %>%
-  mutate(`BMI Category` = ifelse(`BMI Category` == "Normal Weight", "Normal", `BMI Category`))
+                        into = c("SBP", "DBP"), sep = "/") %>% 
+  rename(BMI_cat = `BMI Category`) %>% 
+  mutate(BMI_cat = ifelse(BMI_cat == "Normal Weight", "Normal", BMI_cat))
 
 
 
@@ -60,7 +57,7 @@ SE_df %>%
 slp_life_df %>% 
   mutate(Gender = as.factor(Gender),
          Occupation = as.factor(Occupation),
-         `BMI Category` = as.factor(`BMI Category`),
+         BMI_cat = as.factor(BMI_cat),
          `Sleep Disorder` = as.factor(`Sleep Disorder`),
          SBP = as.numeric(SBP),
          DBP = as.numeric(DBP)) %>% 
@@ -79,17 +76,17 @@ SE_smoke <- SE_df %>%
   labs(x = "Sleep Efficiency (%)", y = "Count") +
   theme_minimal()
 
-ggsave(SE_smoke, filename = paste0(figure_path, "SE_smoking.jpeg"), 
+ggsave(SE_smoke, filename = "Figures/SE_smoking.jpeg", 
        dpi = 400, width = 5, height = 3.5)
 
 # 2. Histogram of Sleep duration by BMI category using sleep and life style data
 slp_BMI <- slp_life_df %>% 
-  ggplot(aes(x = `Sleep Duration`, fill = `BMI Category`)) + 
+  ggplot(aes(x = `Sleep Duration`, fill = BMI_cat)) + 
   geom_histogram(binwidth = 1, position = "dodge") +
   scale_x_continuous(breaks = seq(0, 10, 0.5))
 
 
-ggsave(slp_BMI, filename = paste0(figure_path, "SleepDuration_BMI.jpeg"), 
+ggsave(slp_BMI, filename = "Figures/SleepDuration_BMI.jpeg", 
        dpi = 400, width = 5, height = 3.5)
 
 
