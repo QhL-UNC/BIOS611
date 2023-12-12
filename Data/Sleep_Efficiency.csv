@@ -1,4 +1,5 @@
 ID,Age,Gender,Bedtime,Wakeup time,Sleep duration,Sleep efficiency,REM sleep percentage,Deep sleep percentage,Light sleep percentage,Awakenings,Caffeine consumption,Alcohol consumption,Smoking status,Exercise frequency
+ID,Age,Gender,Bedtime,Wakeup_time,Sleep_duration,SE_num,REM_pct,Deep_sleep_pct,Light_sleep_pct,Awakenings,Caffeine_consumption,Alcohol_consumption,Smoking_status,Exercise_frequency
 1,65,Female,3/6/2021 1:00,3/6/2021 7:00,6,0.88,18,70,12,0,0,0,Yes,3
 2,69,Male,12/5/2021 2:00,12/5/2021 9:00,7,0.66,19,28,53,3,0,3,Yes,3
 3,40,Female,5/25/2021 21:30,5/25/2021 5:30,8,0.89,20,70,10,1,0,0,No,3
